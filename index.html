@@ -1,652 +1,398 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Panic Client — Minecraft</title>
+<meta name="description" content="Panic Client — Minecraft. Speed. Control. Glitch."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;800;900&family=Share+Tech+Mono&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet"/>
+<style>
+:root{--bg:#030303;--red:#ff003c;--cyan:#00f0ff;--text:#f0f0f0;--muted:#888}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Rajdhani',system-ui,sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;line-height:1.5}
+body::after{content:'';position:fixed;inset:0;z-index:9998;pointer-events:none;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.15) 2px,rgba(0,0,0,.15) 4px);opacity:.4}
+.vignette{position:fixed;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(ellipse at center,transparent 30%,#000 100%)}
+#fx{position:fixed;inset:0;z-index:-2;width:100%;height:100%}
 
-    <meta
-        name="description"
-        content="PanicClient — a premium Minecraft client."
-    >
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1rem 1.5rem;display:flex;justify-content:space-between;align-items:center;background:rgba(3,3,3,.75);backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,0,60,.12);transition:.3s}
+nav.on{background:rgba(3,3,3,.95);border-bottom-color:rgba(255,0,60,.35)}
+.logo{font-family:'Orbitron',sans-serif;font-weight:900;font-size:1.15rem;letter-spacing:3px;color:#fff}
+.nav-r{display:flex;gap:1.4rem;align-items:center}
+.nav-r a{color:var(--muted);text-decoration:none;font-weight:600;font-size:.92rem;transition:.2s}
+.nav-r a:hover{color:var(--red)}
+.nav-cta{padding:.48rem 1.15rem;background:var(--red);color:#fff;font-weight:700;font-size:.85rem;text-decoration:none;clip-path:polygon(0 0,100% 0,100% 72%,93% 100%,0 100%);box-shadow:0 0 24px rgba(255,0,60,.45);transition:.25s;letter-spacing:1px}
+.nav-cta:hover{background:#ff3366;transform:translateY(-2px);box-shadow:0 0 40px rgba(255,0,60,.7)}
 
-    <title>PanicClient — Premium Minecraft Client</title>
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:7rem 1.3rem 4rem;position:relative}
+.hero-badge{font-family:'Share Tech Mono',monospace;font-size:.78rem;color:var(--cyan);letter-spacing:3px;text-transform:uppercase;margin-bottom:1.4rem;border:1px solid rgba(0,240,255,.3);padding:.32rem .85rem;animation:fadeUp .8s .15s both}
+.hero-badge::before{content:'> '}
+.glitch{font-family:'Orbitron',sans-serif;font-size:clamp(3.8rem,15vw,8.5rem);font-weight:900;letter-spacing:6px;line-height:.95;position:relative;color:#fff;text-transform:uppercase;margin-bottom:.2rem;animation:fadeUp .7s .3s both}
+.glitch::before,.glitch::after{content:attr(data-text);position:absolute;top:0;left:0;width:100%;height:100%}
+.glitch::before{color:var(--cyan);z-index:-1;animation:gTop 2.2s infinite linear alternate-reverse}
+.glitch::after{color:var(--red);z-index:-2;animation:gBot 2.8s infinite linear alternate-reverse}
+@keyframes gTop{0%{clip-path:inset(0 0 88% 0);transform:translate(-4px,-1px)}20%{clip-path:inset(15% 0 55% 0);transform:translate(4px,1px)}40%{clip-path:inset(35% 0 35% 0);transform:translate(-3px,2px)}60%{clip-path:inset(55% 0 18% 0);transform:translate(3px,-2px)}80%{clip-path:inset(75% 0 8% 0);transform:translate(-2px,1px)}100%{clip-path:inset(8% 0 75% 0);transform:translate(2px,-1px)}}
+@keyframes gBot{0%{clip-path:inset(88% 0 0 0);transform:translate(4px,1px)}20%{clip-path:inset(50% 0 18% 0);transform:translate(-4px,-1px)}40%{clip-path:inset(28% 0 42% 0);transform:translate(3px,-2px)}60%{clip-path:inset(12% 0 62% 0);transform:translate(-3px,2px)}80%{clip-path:inset(4% 0 82% 0);transform:translate(2px,-1px)}100%{clip-path:inset(72% 0 8% 0);transform:translate(-2px,1px)}}
+.hero-sub{font-family:'Share Tech Mono',monospace;font-size:clamp(.9rem,2.4vw,1.15rem);color:var(--red);letter-spacing:7px;text-transform:uppercase;margin:1rem 0 1.4rem;animation:fadeUp .8s .45s both,glowPulse 2s 1.2s ease-in-out infinite}
+@keyframes glowPulse{0%,100%{text-shadow:0 0 8px rgba(255,0,60,.4)}50%{text-shadow:0 0 22px rgba(255,0,60,.9),0 0 45px rgba(255,0,60,.3)}}
+.hero p{font-size:clamp(1.05rem,2.2vw,1.2rem);color:var(--muted);max-width:450px;margin-bottom:2.2rem;font-weight:500;animation:fadeUp .8s .55s both}
+.hero-btns{display:flex;gap:.9rem;flex-wrap:wrap;justify-content:center;animation:fadeUp .8s .7s both}
+.btn{display:inline-flex;align-items:center;padding:1.05rem 2.2rem;background:var(--red);color:#fff;font-weight:700;font-size:1.05rem;text-decoration:none;border:none;clip-path:polygon(0 0,100% 0,100% 72%,94% 100%,0 100%);box-shadow:0 0 35px rgba(255,0,60,.5);transition:.25s;letter-spacing:1px;cursor:pointer;position:relative;overflow:hidden}
+.btn::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.25),transparent);transform:translateX(-100%);transition:.5s}
+.btn:hover::before{transform:translateX(100%)}
+.btn:hover{background:#ff3366;transform:translateY(-3px) scale(1.03);box-shadow:0 0 55px rgba(255,0,60,.85)}
+.btn-out{display:inline-flex;align-items:center;padding:1.05rem 1.9rem;background:transparent;color:#fff;font-weight:600;font-size:1rem;text-decoration:none;border:1px solid rgba(255,255,255,.18);clip-path:polygon(0 0,100% 0,100% 72%,94% 100%,0 100%);transition:.25s;letter-spacing:.5px}
+.btn-out:hover{border-color:var(--cyan);color:var(--cyan);box-shadow:0 0 20px rgba(0,240,255,.2)}
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
 
-    <link rel="stylesheet" href="style.css">
+.stats{max-width:900px;margin:0 auto;padding:0 1.3rem 5rem;display:grid;grid-template-columns:repeat(4,1fr);gap:.85rem}
+.stat{background:rgba(10,10,12,.9);border:1px solid rgba(255,0,60,.12);padding:1.45rem .7rem;text-align:center;position:relative;overflow:hidden;transition:.35s}
+.stat::before{content:'';position:absolute;top:0;left:0;width:100%;height:2px;background:linear-gradient(90deg,transparent,var(--red),transparent);transform:scaleX(0);transition:.4s}
+.stat:hover{border-color:rgba(255,0,60,.4);transform:translateY(-6px);box-shadow:0 14px 40px rgba(0,0,0,.5),0 0 25px rgba(255,0,60,.1)}
+.stat:hover::before{transform:scaleX(1)}
+.stat-n{font-family:'Orbitron',sans-serif;font-size:1.85rem;font-weight:800;color:var(--red);text-shadow:0 0 14px rgba(255,0,60,.4)}
+.stat-l{font-family:'Share Tech Mono',monospace;color:var(--muted);font-size:.72rem;letter-spacing:2px;text-transform:uppercase;margin-top:.25rem}
+
+section{padding:5rem 1.3rem;max-width:1020px;margin:0 auto}
+.sh{text-align:center;margin-bottom:2.6rem}
+.sh h2{font-family:'Orbitron',sans-serif;font-size:clamp(1.55rem,4vw,2.2rem);font-weight:800;letter-spacing:2px;margin-bottom:.45rem}
+.sh h2 .r{color:var(--red)}
+.sh p{color:var(--muted);font-size:1rem;font-family:'Share Tech Mono',monospace;letter-spacing:1px}
+
+.feats{display:grid;grid-template-columns:repeat(3,1fr);gap:.95rem}
+.feat{background:rgba(10,10,12,.9);border:1px solid rgba(255,255,255,.04);padding:1.7rem 1.35rem;transition:.35s;position:relative}
+.feat::after{content:'';position:absolute;bottom:0;left:0;width:0;height:2px;background:var(--red);transition:.35s}
+.feat:hover{border-color:rgba(255,0,60,.3);transform:translateY(-8px);box-shadow:0 18px 45px rgba(0,0,0,.45)}
+.feat:hover::after{width:100%}
+.feat-ic{font-size:1.45rem;margin-bottom:.75rem;filter:drop-shadow(0 0 8px rgba(255,0,60,.3))}
+.feat h3{font-family:'Orbitron',sans-serif;font-size:.92rem;font-weight:700;letter-spacing:1px;margin-bottom:.35rem}
+.feat p{color:var(--muted);font-size:.9rem;font-weight:500}
+
+.gui-sec{padding:4rem 1.2rem 5rem;max-width:900px;margin:0 auto}
+.panic-gui{background:#0a0a0c;border:1px solid rgba(255,0,60,.28);overflow:hidden;display:flex;min-height:420px;max-height:500px;box-shadow:0 0 50px rgba(255,0,60,.1),0 28px 60px rgba(0,0,0,.6);position:relative}
+.panic-gui::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--red),var(--cyan),transparent);animation:scan 3s linear infinite}
+@keyframes scan{0%,100%{opacity:.3}50%{opacity:1}}
+.gui-side{width:140px;background:#060608;border-right:1px solid rgba(255,0,60,.12);padding:.7rem 0;flex-shrink:0}
+.gui-brand{font-family:'Orbitron',sans-serif;font-size:.88rem;font-weight:900;text-align:center;color:var(--red);letter-spacing:3px;padding:.2rem 0 .8rem;text-shadow:0 0 12px rgba(255,0,60,.55)}
+.gui-tab{display:flex;align-items:center;padding:.45rem .8rem;font-size:.82rem;font-weight:600;color:var(--muted);cursor:pointer;transition:.15s;border-left:2px solid transparent;user-select:none;font-family:'Share Tech Mono',monospace}
+.gui-tab:hover{color:#fff;background:rgba(255,255,255,.03)}
+.gui-tab.active{color:var(--red);background:rgba(255,0,60,.07);border-left-color:var(--red);text-shadow:0 0 8px rgba(255,0,60,.35)}
+.gui-tab .n{margin-left:auto;font-size:.68rem;opacity:.55}
+.gui-body{flex:1;padding:.8rem;overflow-y:auto;display:none}
+.gui-body.active{display:block;animation:panelIn .2s ease}
+@keyframes panelIn{from{opacity:0;filter:blur(2px)}to{opacity:1;filter:blur(0)}}
+.gui-search{background:#040406;border:1px solid rgba(255,255,255,.06);padding:.38rem .65rem;margin-bottom:.75rem;color:#555;font-size:.8rem;font-family:'Share Tech Mono',monospace}
+.mods{display:grid;grid-template-columns:repeat(auto-fill,minmax(175px,1fr));gap:.42rem}
+.mod{background:#0e0e12;border:1px solid rgba(255,255,255,.03);padding:.6rem .7rem;transition:.15s}
+.mod:hover{border-color:rgba(255,0,60,.3);background:#121218;box-shadow:0 0 14px rgba(255,0,60,.07)}
+.mod-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:.12rem}
+.mod-name{font-size:.85rem;font-weight:700;color:#eee;font-family:'Share Tech Mono',monospace}
+.tog{width:28px;height:14px;background:#1a1a1a;position:relative;cursor:pointer;transition:.2s;flex-shrink:0;border:1px solid #2a2a2a}
+.tog.on{background:var(--red);border-color:var(--red);box-shadow:0 0 10px rgba(255,0,60,.45)}
+.tog::after{content:'';position:absolute;top:1px;left:1px;width:10px;height:10px;background:#fff;transition:.2s}
+.tog.on::after{transform:translateX(14px)}
+.mod-desc{font-size:.68rem;color:#666;font-weight:500}
+.themes{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:.42rem}
+.theme{background:#0e0e12;border:1px solid rgba(255,255,255,.03);padding:.75rem;text-align:center;cursor:pointer;transition:.15s}
+.theme:hover,.theme.active{border-color:var(--red);box-shadow:0 0 14px rgba(255,0,60,.12)}
+.theme-dots{display:flex;gap:4px;justify-content:center;margin-bottom:.3rem}
+.theme-dots i{width:10px;height:10px;display:block}
+.theme-name{font-size:.75rem;font-weight:600;color:#ccc;font-family:'Share Tech Mono',monospace}
+.gui-hint{text-align:center;color:var(--muted);font-size:.82rem;margin-top:.95rem;font-family:'Share Tech Mono',monospace}
+
+.split{display:grid;grid-template-columns:1fr 1fr;gap:2.8rem;align-items:center;padding:5rem 1.3rem;max-width:1020px;margin:0 auto}
+.split h2{font-family:'Orbitron',sans-serif;font-size:clamp(1.35rem,3.4vw,1.9rem);font-weight:800;letter-spacing:1px;margin-bottom:.9rem}
+.split h2 .r{color:var(--red)}
+.split p{color:var(--muted);font-size:1.02rem;margin-bottom:1.1rem;font-weight:500}
+.list{list-style:none}
+.list li{display:flex;align-items:center;gap:.55rem;padding:.38rem 0;font-weight:600;font-size:.98rem}
+.list li::before{content:'//';color:var(--red);font-family:'Share Tech Mono',monospace;font-size:.85rem}
+.big-panic{background:#0a0a0c;border:1px solid rgba(255,0,60,.28);padding:2.8rem 1.8rem;text-align:center;position:relative;overflow:hidden}
+.big-panic::before{content:'PANIC';font-family:'Orbitron',sans-serif;font-size:clamp(2.8rem,7vw,4.5rem);font-weight:900;color:rgba(255,0,60,.05);position:absolute;inset:0;display:flex;align-items:center;justify-content:center;letter-spacing:10px;pointer-events:none}
+.big-panic .t{font-family:'Orbitron',sans-serif;font-size:1.9rem;font-weight:900;color:var(--red);text-shadow:0 0 28px rgba(255,0,60,.55);position:relative;letter-spacing:4px}
+.big-panic .s{color:var(--muted);margin-top:.45rem;font-family:'Share Tech Mono',monospace;letter-spacing:2px;position:relative}
+
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:.95rem}
+.step{background:rgba(10,10,12,.9);border:1px solid rgba(255,255,255,.04);padding:1.9rem 1.15rem;text-align:center;transition:.3s}
+.step:hover{border-color:rgba(255,0,60,.3);transform:translateY(-6px);box-shadow:0 14px 35px rgba(0,0,0,.4)}
+.step-n{font-family:'Orbitron',sans-serif;font-size:1.5rem;font-weight:900;color:var(--red);text-shadow:0 0 14px rgba(255,0,60,.35);margin-bottom:.55rem}
+.step h3{font-family:'Orbitron',sans-serif;font-size:.9rem;font-weight:700;letter-spacing:1px;margin-bottom:.3rem}
+.step p{color:var(--muted);font-size:.88rem;font-weight:500}
+
+.faq{max-width:640px;margin:0 auto;display:flex;flex-direction:column;gap:.55rem}
+.faq-item{background:rgba(10,10,12,.9);border:1px solid rgba(255,255,255,.04);overflow:hidden;transition:.25s}
+.faq-item.open{border-color:rgba(255,0,60,.3)}
+.faq-q{width:100%;padding:.95rem 1.1rem;background:none;border:none;color:var(--text);font-size:.98rem;font-weight:700;text-align:left;cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-family:inherit}
+.faq-q span{color:var(--red);font-size:1.25rem;transition:.25s;font-family:'Share Tech Mono',monospace}
+.faq-item.open .faq-q span{transform:rotate(45deg)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .35s ease,padding .25s;color:var(--muted);font-size:.92rem;font-weight:500;padding:0 1.1rem}
+.faq-item.open .faq-a{max-height:140px;padding:0 1.1rem .95rem}
+
+.cta{text-align:center;padding:4rem 1.3rem 6rem;max-width:640px;margin:0 auto}
+.cta-box{background:#0a0a0c;border:1px solid rgba(255,0,60,.3);padding:2.8rem 1.8rem;position:relative;overflow:hidden}
+.cta-box::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--red),var(--cyan),var(--red));background-size:200% 100%;animation:bar 3s linear infinite}
+@keyframes bar{to{background-position:200% 0}}
+.cta-box h2{font-family:'Orbitron',sans-serif;font-size:clamp(1.35rem,3.4vw,1.8rem);font-weight:800;letter-spacing:2px;margin-bottom:.45rem}
+.cta-box p{color:var(--muted);margin-bottom:1.4rem;font-weight:500;font-size:1rem;font-family:'Share Tech Mono',monospace}
+
+footer{text-align:center;padding:1.9rem 1.3rem;border-top:1px solid rgba(255,255,255,.04);color:var(--muted);font-size:.85rem;font-family:'Share Tech Mono',monospace}
+footer a{color:var(--red);text-decoration:none}
+footer a:hover{text-shadow:0 0 10px rgba(255,0,60,.5)}
+
+@media(max-width:850px){.feats{grid-template-columns:1fr 1fr}.stats{grid-template-columns:1fr 1fr}.split{grid-template-columns:1fr;gap:2.3rem}.steps{grid-template-columns:1fr;max-width:300px;margin:0 auto}.nav-r a:not(.nav-cta){display:none}}
+@media(max-width:560px){.panic-gui{flex-direction:column;max-height:none}.gui-side{width:100%;display:flex;flex-wrap:wrap;border-right:none;border-bottom:1px solid rgba(255,0,60,.12);padding:.35rem;gap:.12rem}.gui-brand{display:none}.gui-tab{border-left:none;padding:.32rem .55rem;font-size:.75rem}.gui-tab.active{border-left:none}.feats{grid-template-columns:1fr}.mods{grid-template-columns:1fr 1fr}.hero-btns{flex-direction:column;width:100%;max-width:260px}.btn,.btn-out{width:100%;justify-content:center}}
+@media(max-width:380px){.mods{grid-template-columns:1fr}}
+</style>
 </head>
-
 <body>
-
-    <div class="page-glow"></div>
-
-    <!-- NAVBAR -->
-    <header class="navbar">
-
-        <a href="#" class="logo">
-            <span class="logo-box">P</span>
-            <span>PANIC<span class="blue">CLIENT</span></span>
-        </a>
-
-        <nav>
-            <a href="#features">Features</a>
-            <a href="#about">About</a>
-            <a href="#faq">FAQ</a>
-        </nav>
-
-        <a
-            class="nav-button"
-            href="https://discord.gg/y3GdwMneg"
-            target="_blank"
-            rel="noopener noreferrer"
-        >
-            Get Access
-            <span>↗</span>
-        </a>
-
-    </header>
-
-
-    <main>
-
-        <!-- HERO -->
-        <section class="hero">
-
-            <div class="hero-content">
-
-                <div class="status">
-                    <span></span>
-                    PREMIUM MINECRAFT CLIENT
-                </div>
-
-                <h1>
-                    Minecraft,
-                    <em>your way.</em>
-                </h1>
-
-                <p class="hero-text">
-                    PanicClient is a premium Minecraft client built
-                    for players who want a cleaner interface,
-                    deeper customization and a better experience.
-                </p>
-
-                <div class="hero-buttons">
-
-                    <a
-                        class="button primary"
-                        href="https://discord.gg/y3GdwMneg"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        Get PanicClient
-                        <span>→</span>
-                    </a>
-
-                    <a
-                        class="button secondary"
-                        href="#features"
-                    >
-                        Explore features
-                    </a>
-
-                </div>
-
-                <div class="hero-meta">
-
-                    <div>
-                        <strong>01</strong>
-                        <span>Premium Client</span>
-                    </div>
-
-                    <div>
-                        <strong>24/7</strong>
-                        <span>Community</span>
-                    </div>
-
-                    <div>
-                        <strong>∞</strong>
-                        <span>Customization</span>
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <!-- PRODUCT PREVIEW -->
-            <div class="preview-wrapper">
-
-                <div class="preview-shadow"></div>
-
-                <div class="client-window">
-
-                    <div class="window-top">
-
-                        <div class="window-dots">
-                            <i></i>
-                            <i></i>
-                            <i></i>
-                        </div>
-
-                        <span>PANICCLIENT</span>
-
-                        <small>v1.0</small>
-
-                    </div>
-
-
-                    <div class="window-body">
-
-                        <aside class="sidebar">
-
-                            <div class="sidebar-logo">
-                                P
-                            </div>
-
-                            <div class="sidebar-item active">
-                                ⚔
-                            </div>
-
-                            <div class="sidebar-item">
-                                ◇
-                            </div>
-
-                            <div class="sidebar-item">
-                                ✦
-                            </div>
-
-                            <div class="sidebar-item">
-                                ◌
-                            </div>
-
-                            <div class="sidebar-item">
-                                ⚙
-                            </div>
-
-                        </aside>
-
-
-                        <div class="dashboard">
-
-                            <div class="dashboard-top">
-
-                                <div>
-                                    <span>MODULES</span>
-                                    <h3>Combat</h3>
-                                </div>
-
-                                <div class="search">
-                                    ⌕
-                                </div>
-
-                            </div>
-
-
-                            <div class="module">
-
-                                <div class="module-left">
-
-                                    <div class="module-icon">
-                                        A
-                                    </div>
-
-                                    <div>
-                                        <b>Targeting</b>
-                                        <small>
-                                            Advanced configuration
-                                        </small>
-                                    </div>
-
-                                </div>
-
-                                <div class="toggle on"></div>
-
-                            </div>
-
-
-                            <div class="module">
-
-                                <div class="module-left">
-
-                                    <div class="module-icon">
-                                        V
-                                    </div>
-
-                                    <div>
-                                        <b>Visual Assist</b>
-                                        <small>
-                                            Enhanced visual feedback
-                                        </small>
-                                    </div>
-
-                                </div>
-
-                                <div class="toggle on"></div>
-
-                            </div>
-
-
-                            <div class="module">
-
-                                <div class="module-left">
-
-                                    <div class="module-icon">
-                                        S
-                                    </div>
-
-                                    <div>
-                                        <b>Smart Mode</b>
-                                        <small>
-                                            Adaptive configuration
-                                        </small>
-                                    </div>
-
-                                </div>
-
-                                <div class="toggle"></div>
-
-                            </div>
-
-
-                            <div class="slider-box">
-
-                                <div>
-                                    <span>Intensity</span>
-                                    <b>67%</b>
-                                </div>
-
-                                <div class="slider">
-                                    <span></span>
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <div class="floating-card top-card">
-                    <span class="dot"></span>
-                    <div>
-                        <small>STATUS</small>
-                        <b>Ready to play</b>
-                    </div>
-                </div>
-
-                <div class="floating-card bottom-card">
-                    <strong>✦</strong>
-                    <div>
-                        <small>PANICCLIENT</small>
-                        <b>Premium experience</b>
-                    </div>
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- LINE -->
-        <div class="line"></div>
-
-
-        <!-- FEATURES -->
-        <section class="section" id="features">
-
-            <div class="section-heading">
-
-                <div>
-                    <span class="eyebrow">/ FEATURES</span>
-
-                    <h2>
-                        Made to feel
-                        <em>different.</em>
-                    </h2>
-                </div>
-
-                <p>
-                    Everything is designed around a simple idea:
-                    powerful features shouldn't make the experience
-                    complicated.
-                </p>
-
-            </div>
-
-
-            <div class="features-grid">
-
-                <article class="feature feature-large">
-
-                    <div class="feature-number">01</div>
-
-                    <div class="feature-icon">✦</div>
-
-                    <h3>Clean interface</h3>
-
-                    <p>
-                        A modern interface designed to keep
-                        everything accessible without getting
-                        in your way.
-                    </p>
-
-                    <div class="feature-decoration">
-                        PANIC
-                    </div>
-
-                </article>
-
-
-                <article class="feature">
-
-                    <div class="feature-number">02</div>
-
-                    <div class="feature-icon">◇</div>
-
-                    <h3>Customization</h3>
-
-                    <p>
-                        Configure your experience exactly
-                        how you want it.
-                    </p>
-
-                </article>
-
-
-                <article class="feature">
-
-                    <div class="feature-number">03</div>
-
-                    <div class="feature-icon">↯</div>
-
-                    <h3>Performance</h3>
-
-                    <p>
-                        Built with a focus on responsiveness
-                        and a smooth experience.
-                    </p>
-
-                </article>
-
-
-                <article class="feature">
-
-                    <div class="feature-number">04</div>
-
-                    <div class="feature-icon">↻</div>
-
-                    <h3>Regular updates</h3>
-
-                    <p>
-                        PanicClient continues to evolve with
-                        improvements and new features.
-                    </p>
-
-                </article>
-
-
-                <article class="feature">
-
-                    <div class="feature-number">05</div>
-
-                    <div class="feature-icon">◎</div>
-
-                    <h3>Community</h3>
-
-                    <p>
-                        Updates, support and access are all
-                        available through our Discord.
-                    </p>
-
-                </article>
-
-            </div>
-
-        </section>
-
-
-        <!-- ABOUT -->
-        <section class="about section" id="about">
-
-            <div class="about-image">
-
-                <div class="about-circle"></div>
-
-                <div class="about-letter">
-                    P
-                </div>
-
-                <span class="orbit-text">
-                    PANICCLIENT • PANICCLIENT • PANICCLIENT •
-                </span>
-
-            </div>
-
-
-            <div class="about-content">
-
-                <span class="eyebrow">/ ABOUT PANICCLIENT</span>
-
-                <h2>
-                    Not another
-                    <em>generic client.</em>
-                </h2>
-
-                <p>
-                    PanicClient was built with a different mindset.
-                    Instead of throwing endless elements onto the
-                    screen, we focus on a polished interface,
-                    customization and an experience that feels
-                    intentional.
-                </p>
-
-                <div class="about-points">
-
-                    <div>
-                        <span>01</span>
-                        <b>Modern by design</b>
-                    </div>
-
-                    <div>
-                        <span>02</span>
-                        <b>Built for customization</b>
-                    </div>
-
-                    <div>
-                        <span>03</span>
-                        <b>Always improving</b>
-                    </div>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- ACCESS -->
-        <section class="access">
-
-            <div class="access-inner">
-
-                <span class="eyebrow">/ GET PANICCLIENT</span>
-
-                <h2>
-                    Ready to
-                    <em>play different?</em>
-                </h2>
-
-                <p>
-                    Join the PanicClient Discord to get access,
-                    purchase information, updates and support.
-                </p>
-
-                <a
-                    class="button primary big"
-                    href="https://discord.gg/y3GdwMneg"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    Join Discord
-                    <span>↗</span>
-                </a>
-
-                <div class="access-note">
-                    <span></span>
-                    ACCESS & PURCHASE THROUGH DISCORD
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- FAQ -->
-        <section class="section faq" id="faq">
-
-            <div class="section-heading faq-heading">
-
-                <div>
-                    <span class="eyebrow">/ FAQ</span>
-
-                    <h2>
-                        You ask.
-                        <em>We answer.</em>
-                    </h2>
-                </div>
-
-            </div>
-
-
-            <div class="faq-list">
-
-                <div class="faq-item">
-
-                    <button class="faq-question">
-
-                        <span>Is PanicClient free?</span>
-
-                        <b>+</b>
-
-                    </button>
-
-                    <div class="faq-answer">
-
-                        <p>
-                            No. PanicClient is a premium client.
-                            Join our Discord for current access
-                            and purchase information.
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-                <div class="faq-item">
-
-                    <button class="faq-question">
-
-                        <span>How do I get access?</span>
-
-                        <b>+</b>
-
-                    </button>
-
-                    <div class="faq-answer">
-
-                        <p>
-                            Join our Discord community and follow
-                            the instructions provided there.
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-                <div class="faq-item">
-
-                    <button class="faq-question">
-
-                        <span>Where can I get support?</span>
-
-                        <b>+</b>
-
-                    </button>
-
-                    <div class="faq-answer">
-
-                        <p>
-                            Our Discord is the main place for
-                            support, announcements and updates.
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-                <div class="faq-item">
-
-                    <button class="faq-question">
-
-                        <span>Does PanicClient receive updates?</span>
-
-                        <b>+</b>
-
-                    </button>
-
-                    <div class="faq-answer">
-
-                        <p>
-                            Yes. PanicClient is continuously
-                            evolving with improvements and
-                            new features.
-                        </p>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </section>
-
-    </main>
-
-
-    <!-- FOOTER -->
-    <footer>
-
-        <div class="footer-main">
-
-            <a href="#" class="logo">
-                <span class="logo-box">P</span>
-                <span>PANIC<span class="blue">CLIENT</span></span>
-            </a>
-
-            <a
-                href="https://discord.gg/y3GdwMneg"
-                target="_blank"
-                rel="noopener noreferrer"
-            >
-                Discord ↗
-            </a>
-
-        </div>
-
-        <div class="footer-bottom">
-
-            <span>© 2026 PanicClient</span>
-
-            <span>PLAY DIFFERENT.</span>
-
-        </div>
-
-    </footer>
-
-
-    <script src="script.js"></script>
-
+<canvas id="fx"></canvas>
+<div class="vignette"></div>
+
+<nav id="nav">
+  <div class="logo">PANIC</div>
+  <div class="nav-r">
+    <a href="#features">Фичи</a>
+    <a href="#gui">GUI</a>
+    <a href="#buy">Купить</a>
+    <a href="https://discord.gg/y3GdwMneg" target="_blank" rel="noopener" class="nav-cta">КУПИТЬ</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-badge">SYSTEM ONLINE</div>
+  <h1 class="glitch" data-text="PANIC">PANIC</h1>
+  <div class="hero-sub">Minecraft Client</div>
+  <p>Скорость. Контроль. Никакой жалости. Клиент для тех, кто играет на результат.</p>
+  <div class="hero-btns">
+    <a href="https://discord.gg/y3GdwMneg" target="_blank" rel="noopener" class="btn">КУПИТЬ В DISCORD</a>
+    <a href="#gui" class="btn-out">ОТКРЫТЬ GUI ↓</a>
+  </div>
+</header>
+
+<div class="stats">
+  <div class="stat"><div class="stat-n" data-to="60">0</div><div class="stat-l">Modules</div></div>
+  <div class="stat"><div class="stat-n" data-to="200">0</div><div class="stat-l">+ FPS</div></div>
+  <div class="stat"><div class="stat-n" data-to="8">0</div><div class="stat-l">Themes</div></div>
+  <div class="stat"><div class="stat-n" data-to="24">0</div><div class="stat-l">/7 Support</div></div>
+</div>
+
+<section id="features">
+  <div class="sh"><h2>WHY <span class="r">PANIC</span></h2><p>// no fluff. only edge.</p></div>
+  <div class="feats">
+    <div class="feat"><div class="feat-ic">⚡</div><h3>SPEED</h3><p>Минимальный лаг, оптимизация под PvP и быстрые бои.</p></div>
+    <div class="feat"><div class="feat-ic">🎯</div><h3>CONTROL</h3><p>Combat, movement, visuals — всё в одном GUI.</p></div>
+    <div class="feat"><div class="feat-ic">🔥</div><h3>UI</h3><p>Тёмный Click GUI. Без украшательств. Включил — работает.</p></div>
+    <div class="feat"><div class="feat-ic">👁️</div><h3>VISUALS</h3><p>ESP, tracers, hitboxes, target HUD — информация о поле боя.</p></div>
+    <div class="feat"><div class="feat-ic">🛡️</div><h3>STABLE</h3><p>Фокус на FPS и стабильности, а не на лишних эффектах.</p></div>
+    <div class="feat"><div class="feat-ic">📡</div><h3>UPDATES</h3><p>Фиксы и модули. Саппорт 24/7 в Discord.</p></div>
+  </div>
+</section>
+
+<div class="gui-sec" id="gui">
+  <div class="sh"><h2>CLICK <span class="r">GUI</span></h2><p>// click tabs · toggle modules · pick theme</p></div>
+  <div class="panic-gui">
+    <div class="gui-side">
+      <div class="gui-brand">PANIC</div>
+      <div class="gui-tab active" data-tab="combat">Combat <span class="n">12</span></div>
+      <div class="gui-tab" data-tab="visuals">Visuals <span class="n">18</span></div>
+      <div class="gui-tab" data-tab="movement">Move <span class="n">10</span></div>
+      <div class="gui-tab" data-tab="player">Player <span class="n">9</span></div>
+      <div class="gui-tab" data-tab="misc">Misc <span class="n">11</span></div>
+      <div class="gui-tab" data-tab="themes">Themes</div>
+    </div>
+    <div class="gui-body active" id="t-combat">
+      <div class="gui-search">> search...</div>
+      <div class="mods">
+        <div class="mod"><div class="mod-top"><span class="mod-name">KillAura</span><div class="tog"></div></div><div class="mod-desc">Автоатака целей</div></div>
+        <div class="mod"><div class="mod-top"><span class="mod-name">Velocity</span><div class="tog on"></div></div><div class="mod-desc">Контроль отброса</div></div>
+        <div class="mod"><div class="mod-top"><span class="mod-name">Criticals</span><div class="tog"></div></div><div class="mod-desc">Критические удары</div></div>
+        <div class="mod"><div class="mod-top"><span class="mod-name">AutoClicker</span><div class="tog"></div></div><div class="mod-desc">Автоклик CPS</div></div>
+        <div class="mod"><div class="mod-top"><span class="mod-name">Reach</span><div class="tog"></div></div><div class="mod-desc">Дистанция удара</div></div>
+        <div class="mod"><div class="mod-top"><span class="mod-name">AimAssist</span><div class="tog"></div></div><div class="mod-desc">Помощь прицелу</div></div>
+        <div class="mod"><div class="mod-top"><span class="mod-name">WTap</span><div class="tog on"></div></div><div class="mod-desc">Авто W-tap</div></div>
+        <div class="mod"><div class="mod-top"><span class="mod-name">AutoTotem</span><div class="tog on"></div></div><div class="mod-desc">Авто-тотем</div></div>
+      </div>
+    </div>
+    <div class="gui-body" id="t-visuals">
+      <div class="gui-search">> search...</div>
+      <div class="mods">
+        <div class="mod"><div class="mod-top"><span class="mod-name">ESP</span><div class="tog on"></div></div><div class="mod-desc">Подсветка через стены</div></div>
+        <div class="mod"><div class="mod-top"><span class="mod-name">Tracers</span><div class="tog"></div></div><div class="mod-desc">Линии к игрокам</div></div>
+        <div class="mod"><div class="mod-top"><span class="mod-name">NameTags</span><div class="tog on"></div></div><div class="mod-desc">Улучшенные теги</div></div>
+        <div class="mod"><div class="mod-top"><span class="mod-name">Hitboxes</span><div class="tog"></div></div><div class="mod-desc">Визуальные хитбоксы</div></div>
+        <div class="mod"><div class="mod-top"><span class="mod-name">ChinaHat</span><div class="tog"></div></div><div class="mod-desc">Конус над головой</div></div>
+        <div class="mod"><div class="mod-top"><span class="mod-name">Trails</span><div class="tog"></div></div><div class="mod-desc">След за игроком</div></div>
+        <div class="mod"><div class="mod-top"><span class="mod-name">FullBright</span><div class="tog on"></div></div><div class="mod-desc">Полная яркость</div></div>
+        <div class="mod"><div class="mod-top"><span class="mod-name">TargetHUD</span><div class="tog on"></div></div><div class="mod-desc">Худ цели</div></div>
+        <div class="mod"><div class="mod-top"><span class="mod-name">ArrayList</span><div class="tog on"></div></div><div class="mod-desc">Список модулей</div></div>
+        <div class="mod"><div class="mod-top"><span class="mod-name">NoRender</span><div class="tog"></div></div><div class="mod-desc">Скрыть эффекты</div></div>
+      </div>
+    </div>
+    <div class="gui-body" id="t-movement">
+      <div class="gui-search">> search...</div>
+      <div class="mods">
+        <div class="mod"><div class="mod-top"><span class="mod-name">Speed</span><div class="tog"></div></div><div class="mod-desc">Ускорение</div></div>
+        <div class="mod"><div class="mod-top"><span class="mod-name">Sprint</span><div class="tog on"></div></div><div class="mod-desc">Авто-спринт</div></div>
+        <div class="mod"><div class="mod-top"><span class="mod-name">Fly</span><div class="tog"></div></div><div class="mod-desc">Полёт</div></div>
+        <div class="mod"><div class="mod-top"><span class="mod-name">Step</span><div class="tog"></div></div><div class="mod-desc">Высокий шаг</div></div>
+        <div class="mod"><div class="mod-top"><span class="mod-name">NoSlow</span><div class="tog on"></div></div><div class="mod-desc">Без замедления</div></div>
+        <div class="mod"><div class="mod-top"><span class="mod-name">Scaffold</span><div class="tog"></div></div><div class="mod-desc">Авто-стройка</div></div>
+      </div>
+    </div>
+    <div class="gui-body" id="t-player">
+      <div class="gui-search">> search...</div>
+      <div class="mods">
+        <div class="mod"><div class="mod-top"><span class="mod-name">ChestStealer</span><div class="tog"></div></div><div class="mod-desc">Быстрый лут</div></div>
+        <div class="mod"><div class="mod-top"><span class="mod-name">InvManager</span><div class="tog on"></div></div><div class="mod-desc">Сортировка инвентаря</div></div>
+        <div class="mod"><div class="mod-top"><span class="mod-name">AutoArmor</span><div class="tog on"></div></div><div class="mod-desc">Авто-броня</div></div>
+        <div class="mod"><div class="mod-top"><span class="mod-name">NoFall</span><div class="tog"></div></div><div class="mod-desc">Без урона падения</div></div>
+        <div class="mod"><div class="mod-top"><span class="mod-name">Regen</span><div class="tog"></div></div><div class="mod-desc">Регенерация</div></div>
+      </div>
+    </div>
+    <div class="gui-body" id="t-misc">
+      <div class="gui-search">> search...</div>
+      <div class="mods">
+        <div class="mod"><div class="mod-top"><span class="mod-name">MiddleClick</span><div class="tog on"></div></div><div class="mod-desc">СКМ → друзья</div></div>
+        <div class="mod"><div class="mod-top"><span class="mod-name">StreamerMode</span><div class="tog"></div></div><div class="mod-desc">Скрыть ники</div></div>
+        <div class="mod"><div class="mod-top"><span class="mod-name">Notifications</span><div class="tog on"></div></div><div class="mod-desc">Тосты модулей</div></div>
+        <div class="mod"><div class="mod-top"><span class="mod-name">Watermark</span><div class="tog on"></div></div><div class="mod-desc">Вотермарк Panic</div></div>
+        <div class="mod"><div class="mod-top"><span class="mod-name">ClickGUI</span><div class="tog on"></div></div><div class="mod-desc">Это меню</div></div>
+      </div>
+    </div>
+    <div class="gui-body" id="t-themes">
+      <div class="themes">
+        <div class="theme active"><div class="theme-dots"><i style="background:#ff003c"></i><i style="background:#00f0ff"></i></div><div class="theme-name">Panic</div></div>
+        <div class="theme"><div class="theme-dots"><i style="background:#ff3366"></i><i style="background:#ff003c"></i></div><div class="theme-name">Blood</div></div>
+        <div class="theme"><div class="theme-dots"><i style="background:#fff"></i><i style="background:#444"></i></div><div class="theme-name">Mono</div></div>
+        <div class="theme"><div class="theme-dots"><i style="background:#00ff88"></i><i style="background:#111"></i></div><div class="theme-name">Toxic</div></div>
+        <div class="theme"><div class="theme-dots"><i style="background:#00f0ff"></i><i style="background:#111"></i></div><div class="theme-name">Cyan</div></div>
+        <div class="theme"><div class="theme-dots"><i style="background:#cc44ff"></i><i style="background:#111"></i></div><div class="theme-name">Void</div></div>
+        <div class="theme"><div class="theme-dots"><i style="background:#ffcc00"></i><i style="background:#111"></i></div><div class="theme-name">Gold</div></div>
+        <div class="theme"><div class="theme-dots"><i style="background:#ff6b1a"></i><i style="background:#ff003c"></i></div><div class="theme-name">Fire</div></div>
+      </div>
+    </div>
+  </div>
+  <p class="gui-hint">> demo only · full client after purchase</p>
+</div>
+
+<div class="split">
+  <div>
+    <h2>BUILT FOR <span class="r">COMBAT</span></h2>
+    <p>Panic — не про красивые партиклы. Про скорость реакции, информацию и контроль.</p>
+    <ul class="list">
+      <li>Combat · Visuals · Movement</li>
+      <li>Тёмный Click GUI</li>
+      <li>Оптимизация FPS</li>
+      <li>Саппорт в Discord</li>
+    </ul>
+  </div>
+  <div class="big-panic">
+    <div class="t">PANIC</div>
+    <div class="s">STAY SHARP. STAY READY.</div>
+  </div>
+</div>
+
+<section id="buy">
+  <div class="sh"><h2>HOW TO <span class="r">BUY</span></h2><p>// three steps</p></div>
+  <div class="steps">
+    <div class="step"><div class="step-n">01</div><h3>DISCORD</h3><p>Зайди на сервер по кнопке</p></div>
+    <div class="step"><div class="step-n">02</div><h3>PAY</h3><p>Выбери тариф в канале покупок</p></div>
+    <div class="step"><div class="step-n">03</div><h3>PLAY</h3><p>Получи клиент и инструкцию</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="sh"><h2>FAQ</h2><p>// quick answers</p></div>
+  <div class="faq">
+    <div class="faq-item"><button class="faq-q">На каких версиях работает? <span>+</span></button><div class="faq-a">Актуальные версии Minecraft. Список — в Discord.</div></div>
+    <div class="faq-item"><button class="faq-q">Сложно ставить? <span>+</span></button><div class="faq-a">Нет. После оплаты придёт инструкция — обычно пара минут.</div></div>
+    <div class="faq-item"><button class="faq-q">Есть поддержка? <span>+</span></button><div class="faq-a">Да. Пиши в Discord — поможем с установкой и настройкой.</div></div>
+    <div class="faq-item"><button class="faq-q">Чем отличается от Crystal? <span>+</span></button><div class="faq-a">Другой фокус: Panic — про скорость и бой, без soft UI.</div></div>
+  </div>
+</section>
+
+<div class="cta">
+  <div class="cta-box">
+    <h2>READY FOR PANIC?</h2>
+    <p>> join discord · get client</p>
+    <a href="https://discord.gg/y3GdwMneg" target="_blank" rel="noopener" class="btn">КУПИТЬ В DISCORD</a>
+  </div>
+</div>
+
+<footer>
+  <p>© 2026 PANIC CLIENT · <a href="https://discord.gg/y3GdwMneg" target="_blank" rel="noopener">DISCORD</a></p>
+</footer>
+
+<script>
+const c=document.getElementById('fx'),ctx=c.getContext('2d');
+let w,h,parts=[];
+function resize(){w=c.width=innerWidth;h=c.height=innerHeight}
+resize();addEventListener('resize',resize);
+class Part{
+  constructor(){this.reset(true)}
+  reset(init){this.x=Math.random()*w;this.y=init?Math.random()*h:h+10;this.s=.7+Math.random()*2;this.v=.35+Math.random()*1.3;this.o=.12+Math.random()*.4;this.col=Math.random()>.55?'255,0,60':(Math.random()>.5?'0,240,255':'255,255,255')}
+  update(){this.y-=this.v;if(this.y<-10)this.reset(false)}
+  draw(){ctx.fillStyle=`rgba(${this.col},${this.o})`;ctx.fillRect(this.x,this.y,this.s,this.s*3)}
+}
+for(let i=0;i<90;i++)parts.push(new Part());
+let flash=0;
+(function loop(){
+  ctx.clearRect(0,0,w,h);
+  parts.forEach(p=>{p.update();p.draw()});
+  if(Math.random()<.01)flash=5;
+  if(flash>0){ctx.fillStyle=`rgba(255,0,60,${.025*flash})`;ctx.fillRect(0,0,w,h);flash--}
+  requestAnimationFrame(loop);
+})();
+
+const nav=document.getElementById('nav');
+addEventListener('scroll',()=>nav.classList.toggle('on',scrollY>40));
+
+const nums=document.querySelectorAll('.stat-n');
+const io=new IntersectionObserver(ents=>{
+  ents.forEach(e=>{
+    if(!e.isIntersecting)return;
+    const el=e.target,to=+el.dataset.to;let cur=0;const step=to/35;
+    const t=setInterval(()=>{cur+=step;if(cur>=to){el.textContent=to;clearInterval(t)}else el.textContent=Math.floor(cur)},22);
+    io.unobserve(el);
+  });
+},{threshold:.4});
+nums.forEach(n=>io.observe(n));
+
+document.querySelectorAll('.gui-tab').forEach(tab=>{
+  tab.addEventListener('click',()=>{
+    document.querySelectorAll('.gui-tab').forEach(t=>t.classList.remove('active'));
+    document.querySelectorAll('.gui-body').forEach(b=>b.classList.remove('active'));
+    tab.classList.add('active');
+    const p=document.getElementById('t-'+tab.dataset.tab);
+    if(p)p.classList.add('active');
+  });
+});
+document.querySelectorAll('.tog').forEach(t=>{
+  t.addEventListener('click',e=>{e.stopPropagation();t.classList.toggle('on')});
+});
+document.querySelectorAll('.theme').forEach(th=>{
+  th.addEventListener('click',()=>{
+    document.querySelectorAll('.theme').forEach(x=>x.classList.remove('active'));
+    th.classList.add('active');
+  });
+});
+document.querySelectorAll('.faq-q').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const item=btn.parentElement,open=item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i=>i.classList.remove('open'));
+    if(!open)item.classList.add('open');
+  });
+});
+
+const title=document.querySelector('.glitch');
+setInterval(()=>{
+  if(Math.random()>.65){
+    title.style.transform=`translate(${(Math.random()-.5)*5}px,${(Math.random()-.5)*3}px)`;
+    setTimeout(()=>{title.style.transform=''},60);
+  }
+},1800);
+</script>
 </body>
 </html>
