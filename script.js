@@ -1,211 +1,95 @@
-/* =================================
-   SCROLL REVEAL
-================================= */
+// =========================
+// FAQ
+// =========================
 
-const revealElements =
-    document.querySelectorAll(".reveal");
+const faqItems = document.querySelectorAll(".faq-item");
 
+faqItems.forEach((item) => {
 
-const revealObserver =
-    new IntersectionObserver(
-        (entries) => {
+    const button = item.querySelector(".faq-question");
 
-            entries.forEach((entry) => {
+    button.addEventListener("click", () => {
 
-                if (entry.isIntersecting) {
+        const isOpen = item.classList.contains("open");
 
-                    entry.target.classList.add("visible");
+        faqItems.forEach((other) => {
+            other.classList.remove("open");
+        });
 
-                    revealObserver.unobserve(
-                        entry.target
-                    );
-
-                }
-
-            });
-
-        },
-        {
-            threshold: 0.12
+        if (!isOpen) {
+            item.classList.add("open");
         }
-    );
 
-
-revealElements.forEach((element) => {
-
-    revealObserver.observe(element);
+    });
 
 });
 
 
+// =========================
+// CLIENT 3D EFFECT
+// =========================
 
-/* =================================
-   CURSOR GLOW
-================================= */
+const clientWindow =
+    document.querySelector(".client-window");
 
-const cursorGlow =
-    document.querySelector(".cursor-glow");
+if (clientWindow && window.innerWidth > 700) {
 
+    clientWindow.addEventListener("mousemove", (event) => {
 
-window.addEventListener(
-    "pointermove",
-    (event) => {
+        const rect =
+            clientWindow.getBoundingClientRect();
 
-        cursorGlow.style.left =
-            `${event.clientX}px`;
+        const x =
+            (event.clientX - rect.left) / rect.width;
 
-        cursorGlow.style.top =
-            `${event.clientY}px`;
+        const y =
+            (event.clientY - rect.top) / rect.height;
 
-    }
-);
+        const rotateY =
+            (x - 0.5) * 8;
 
+        const rotateX =
+            (y - 0.5) * -5;
 
+        clientWindow.style.transform =
+            `perspective(1200px)
+             rotateY(${rotateY}deg)
+             rotateX(${rotateX}deg)
+             translateY(-7px)`;
 
-/* =================================
-   CLIENT 3D TILT
-================================= */
+    });
 
-const clientUI =
-    document.querySelector(".client-ui");
+    clientWindow.addEventListener("mouseleave", () => {
 
+        clientWindow.style.transform =
+            `perspective(1200px)
+             rotateY(-7deg)
+             rotateX(2deg)`;
 
-if (clientUI) {
-
-    clientUI.addEventListener(
-        "mousemove",
-        (event) => {
-
-            const rect =
-                clientUI.getBoundingClientRect();
-
-            const x =
-                event.clientX - rect.left;
-
-            const y =
-                event.clientY - rect.top;
-
-            const rotateY =
-                ((x / rect.width) - 0.5) * 10;
-
-            const rotateX =
-                ((y / rect.height) - 0.5) * -7;
-
-            clientUI.style.transform =
-                `perspective(1400px)
-                 rotateY(${rotateY}deg)
-                 rotateX(${rotateX}deg)
-                 translateY(-7px)`;
-
-        }
-    );
-
-
-    clientUI.addEventListener(
-        "mouseleave",
-        () => {
-
-            clientUI.style.transform =
-                `perspective(1400px)
-                 rotateY(-8deg)
-                 rotateX(3deg)`;
-
-        }
-    );
+    });
 
 }
 
 
-
-/* =================================
-   FAQ
-================================= */
-
-const faqItems =
-    document.querySelectorAll(".faq-item");
-
-
-faqItems.forEach((item) => {
-
-    const button =
-        item.querySelector(".faq-question");
-
-
-    button.addEventListener(
-        "click",
-        () => {
-
-            const alreadyOpen =
-                item.classList.contains("open");
-
-
-            faqItems.forEach((other) => {
-
-                other.classList.remove("open");
-
-            });
-
-
-            if (!alreadyOpen) {
-
-                item.classList.add("open");
-
-            }
-
-        }
-    );
-
-});
-
-
-
-/* =================================
-   NAVBAR
-================================= */
+// =========================
+// NAVBAR ON SCROLL
+// =========================
 
 const navbar =
     document.querySelector(".navbar");
 
+window.addEventListener("scroll", () => {
 
-window.addEventListener(
-    "scroll",
-    () => {
+    if (window.scrollY > 30) {
 
-        if (window.scrollY > 40) {
+        navbar.style.background =
+            "rgba(3, 7, 13, 0.92)";
 
-            navbar.style.background =
-                "rgba(2,5,10,.9)";
+    } else {
 
-        } else {
-
-            navbar.style.background =
-                "rgba(2,5,10,.65)";
-
-        }
+        navbar.style.background =
+            "rgba(3, 7, 13, 0.72)";
 
     }
-);
-
-
-
-/* =================================
-   SMOOTH BUTTON FEEDBACK
-================================= */
-
-const buttons =
-    document.querySelectorAll(".btn");
-
-
-buttons.forEach((button) => {
-
-    button.addEventListener(
-        "mouseenter",
-        () => {
-
-            button.style.transition =
-                "transform .25s ease, box-shadow .25s ease";
-
-        }
-    );
 
 });
