@@ -4,53 +4,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta name="description" content="PanicClient — a premium Minecraft client built different.">
+    <meta
+        name="description"
+        content="PanicClient — a premium Minecraft client."
+    >
 
-    <title>PanicClient — Play Different.</title>
+    <title>PanicClient — Premium Minecraft Client</title>
 
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <!-- BACKGROUND -->
-    <div class="background">
-        <div class="noise"></div>
-        <div class="grid"></div>
+    <div class="page-glow"></div>
 
-        <div class="blue-light light-one"></div>
-        <div class="blue-light light-two"></div>
-        <div class="blue-light light-three"></div>
-    </div>
-
-    <div class="cursor-glow"></div>
-
-
-    <!-- NAVIGATION -->
+    <!-- NAVBAR -->
     <header class="navbar">
 
-        <a href="#" class="brand">
-            <div class="brand-mark">P</div>
-
-            <div class="brand-name">
-                PANIC<span>CLIENT</span>
-            </div>
+        <a href="#" class="logo">
+            <span class="logo-box">P</span>
+            <span>PANIC<span class="blue">CLIENT</span></span>
         </a>
 
-
-        <nav class="nav-links">
+        <nav>
             <a href="#features">Features</a>
-            <a href="#showcase">Showcase</a>
-            <a href="#updates">Updates</a>
-            <a href="#access">Access</a>
+            <a href="#about">About</a>
+            <a href="#faq">FAQ</a>
         </nav>
 
-
         <a
+            class="nav-button"
             href="https://discord.gg/y3GdwMneg"
             target="_blank"
             rel="noopener noreferrer"
-            class="nav-cta"
         >
             Get Access
             <span>↗</span>
@@ -61,72 +47,63 @@
 
     <main>
 
-
         <!-- HERO -->
         <section class="hero">
 
-            <div class="hero-left reveal">
+            <div class="hero-content">
 
-                <div class="eyebrow">
-                    <span class="pulse"></span>
+                <div class="status">
+                    <span></span>
                     PREMIUM MINECRAFT CLIENT
                 </div>
 
-
                 <h1>
-                    Play
-                    <span>different.</span>
-                    <br>
-                    Play <b>Panic.</b>
+                    Minecraft,
+                    <em>your way.</em>
                 </h1>
 
-
-                <p class="hero-description">
-                    A premium Minecraft client engineered around
-                    customization, modern design and a completely
-                    different experience.
+                <p class="hero-text">
+                    PanicClient is a premium Minecraft client built
+                    for players who want a cleaner interface,
+                    deeper customization and a better experience.
                 </p>
 
-
-                <div class="hero-actions">
+                <div class="hero-buttons">
 
                     <a
+                        class="button primary"
                         href="https://discord.gg/y3GdwMneg"
                         target="_blank"
                         rel="noopener noreferrer"
-                        class="btn btn-blue"
                     >
-                        <span>Get PanicClient</span>
-                        <strong>→</strong>
+                        Get PanicClient
+                        <span>→</span>
                     </a>
 
-                    <a href="#showcase" class="btn btn-dark">
-                        Explore Client
-                        <span>↓</span>
+                    <a
+                        class="button secondary"
+                        href="#features"
+                    >
+                        Explore features
                     </a>
 
                 </div>
 
+                <div class="hero-meta">
 
-                <div class="hero-proof">
-
-                    <div class="proof-item">
+                    <div>
                         <strong>01</strong>
                         <span>Premium Client</span>
                     </div>
 
-                    <div class="proof-line"></div>
-
-                    <div class="proof-item">
-                        <strong>∞</strong>
-                        <span>Customization</span>
-                    </div>
-
-                    <div class="proof-line"></div>
-
-                    <div class="proof-item">
+                    <div>
                         <strong>24/7</strong>
                         <span>Community</span>
+                    </div>
+
+                    <div>
+                        <strong>∞</strong>
+                        <span>Customization</span>
                     </div>
 
                 </div>
@@ -134,93 +111,69 @@
             </div>
 
 
-            <!-- HERO PRODUCT -->
-            <div class="hero-right reveal">
+            <!-- PRODUCT PREVIEW -->
+            <div class="preview-wrapper">
 
-                <div class="hero-orbit orbit-one"></div>
-                <div class="hero-orbit orbit-two"></div>
+                <div class="preview-shadow"></div>
 
+                <div class="client-window">
 
-                <div class="product-glow"></div>
+                    <div class="window-top">
 
-
-                <div class="floating-pill pill-one">
-                    <span class="pill-icon">✦</span>
-                    <div>
-                        <small>PANIC</small>
-                        <b>Premium</b>
-                    </div>
-                </div>
-
-
-                <div class="floating-pill pill-two">
-                    <span class="online"></span>
-                    <div>
-                        <small>STATUS</small>
-                        <b>Ready</b>
-                    </div>
-                </div>
-
-
-                <!-- CLIENT UI -->
-                <div class="client-ui">
-
-                    <div class="ui-header">
-
-                        <div class="ui-dots">
+                        <div class="window-dots">
                             <i></i>
                             <i></i>
                             <i></i>
                         </div>
 
-                        <div class="ui-title">
-                            PANICCLIENT
-                        </div>
+                        <span>PANICCLIENT</span>
 
-                        <div class="ui-version">
-                            v1.0
-                        </div>
+                        <small>v1.0</small>
 
                     </div>
 
 
-                    <div class="ui-content">
+                    <div class="window-body">
 
-                        <aside class="ui-sidebar">
+                        <aside class="sidebar">
 
                             <div class="sidebar-logo">
                                 P
                             </div>
 
-                            <div class="side-button active">
+                            <div class="sidebar-item active">
                                 ⚔
                             </div>
 
-                            <div class="side-button">
-                                ◈
+                            <div class="sidebar-item">
+                                ◇
                             </div>
 
-                            <div class="side-button">
-                                ✧
+                            <div class="sidebar-item">
+                                ✦
                             </div>
 
-                            <div class="side-button">
+                            <div class="sidebar-item">
+                                ◌
+                            </div>
+
+                            <div class="sidebar-item">
                                 ⚙
                             </div>
 
                         </aside>
 
 
-                        <div class="ui-main">
+                        <div class="dashboard">
 
-                            <div class="ui-heading">
+                            <div class="dashboard-top">
 
                                 <div>
-                                    <small>MODULES</small>
+                                    <span>MODULES</span>
                                     <h3>Combat</h3>
                                 </div>
 
-                                <div class="ui-search">
+                                <div class="search">
                                     ⌕
                                 </div>
 
@@ -229,60 +182,78 @@
 
                             <div class="module">
 
-                                <div class="module-info">
-                                    <div class="module-icon">⚡</div>
+                                <div class="module-left">
+
+                                    <div class="module-icon">
+                                        A
+                                    </div>
 
                                     <div>
-                                        <strong>Targeting</strong>
-                                        <small>Advanced configuration</small>
+                                        <b>Targeting</b>
+                                        <small>
+                                            Advanced configuration
+                                        </small>
                                     </div>
+
                                 </div>
 
-                                <div class="switch on"></div>
+                                <div class="toggle on"></div>
 
                             </div>
 
 
                             <div class="module">
 
-                                <div class="module-info">
-                                    <div class="module-icon">◉</div>
+                                <div class="module-left">
+
+                                    <div class="module-icon">
+                                        V
+                                    </div>
 
                                     <div>
-                                        <strong>Visual Assist</strong>
-                                        <small>Enhanced visual feedback</small>
+                                        <b>Visual Assist</b>
+                                        <small>
+                                            Enhanced visual feedback
+                                        </small>
                                     </div>
+
                                 </div>
 
-                                <div class="switch on"></div>
+                                <div class="toggle on"></div>
 
                             </div>
 
 
                             <div class="module">
 
-                                <div class="module-info">
-                                    <div class="module-icon">✦</div>
+                                <div class="module-left">
+
+                                    <div class="module-icon">
+                                        S
+                                    </div>
 
                                     <div>
-                                        <strong>Smart Mode</strong>
-                                        <small>Adaptive configuration</small>
+                                        <b>Smart Mode</b>
+                                        <small>
+                                            Adaptive configuration
+                                        </small>
                                     </div>
+
                                 </div>
 
-                                <div class="switch"></div>
+                                <div class="toggle"></div>
 
                             </div>
 
 
-                            <div class="range-box">
+                            <div class="slider-box">
 
-                                <div class="range-title">
+                                <div>
                                     <span>Intensity</span>
                                     <b>67%</b>
                                 </div>
 
-                                <div class="range">
+                                <div class="slider">
                                     <span></span>
                                 </div>
 
@@ -294,255 +265,137 @@
 
                 </div>
 
+                <div class="floating-card top-card">
+                    <span class="dot"></span>
+                    <div>
+                        <small>STATUS</small>
+                        <b>Ready to play</b>
+                    </div>
+                </div>
+
+                <div class="floating-card bottom-card">
+                    <strong>✦</strong>
+                    <div>
+                        <small>PANICCLIENT</small>
+                        <b>Premium experience</b>
+                    </div>
+                </div>
+
             </div>
 
         </section>
 
 
-
-        <!-- MARQUEE -->
-        <div class="marquee">
-
-            <div class="marquee-track">
-
-                <span>PANICCLIENT</span>
-                <i>✦</i>
-
-                <span>PLAY DIFFERENT</span>
-                <i>✦</i>
-
-                <span>PREMIUM EXPERIENCE</span>
-                <i>✦</i>
-
-                <span>PANICCLIENT</span>
-                <i>✦</i>
-
-                <span>PLAY DIFFERENT</span>
-                <i>✦</i>
-
-                <span>PREMIUM EXPERIENCE</span>
-                <i>✦</i>
-
-            </div>
-
-        </div>
+        <!-- LINE -->
+        <div class="line"></div>
 
 
+        <!-- FEATURES -->
+        <section class="section" id="features">
 
-        <!-- SHOWCASE -->
-        <section class="showcase section" id="showcase">
-
-            <div class="section-top reveal">
+            <div class="section-heading">
 
                 <div>
-                    <div class="label">/ THE EXPERIENCE</div>
+                    <span class="eyebrow">/ FEATURES</span>
 
                     <h2>
-                        Everything you need.
-                        <span>Nothing you don't.</span>
+                        Made to feel
+                        <em>different.</em>
                     </h2>
                 </div>
 
                 <p>
-                    PanicClient combines a powerful feature set
-                    with a clean interface designed to stay out
-                    of your way.
+                    Everything is designed around a simple idea:
+                    powerful features shouldn't make the experience
+                    complicated.
                 </p>
 
             </div>
 
 
-            <div class="showcase-grid">
+            <div class="features-grid">
 
-                <div class="showcase-main reveal">
+                <article class="feature feature-large">
 
-                    <div class="showcase-glow"></div>
+                    <div class="feature-number">01</div>
 
-                    <div class="showcase-header">
-                        <span>01</span>
-                        <span>INTERFACE</span>
-                    </div>
+                    <div class="feature-icon">✦</div>
 
-                    <div class="mini-ui">
-
-                        <div class="mini-sidebar">
-
-                            <div class="mini-brand">P</div>
-
-                            <span class="mini-active">⚔</span>
-                            <span>◈</span>
-                            <span>✧</span>
-                            <span>⚙</span>
-
-                        </div>
-
-                        <div class="mini-content">
-
-                            <small>COMBAT</small>
-
-                            <h3>Built around you.</h3>
-
-                            <div class="mini-row">
-                                <span>Targeting</span>
-                                <b>ON</b>
-                            </div>
-
-                            <div class="mini-row">
-                                <span>Smart Mode</span>
-                                <b>OFF</b>
-                            </div>
-
-                            <div class="mini-line">
-                                <span></span>
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-                <div class="showcase-card reveal">
-
-                    <span class="card-index">02</span>
-
-                    <div class="card-symbol">⚡</div>
-
-                    <h3>Performance</h3>
+                    <h3>Clean interface</h3>
 
                     <p>
-                        A lightweight experience designed
-                        to stay responsive while you play.
+                        A modern interface designed to keep
+                        everything accessible without getting
+                        in your way.
                     </p>
 
-                    <div class="card-bottom">
-                        <span>OPTIMIZED</span>
-                        <b>↗</b>
+                    <div class="feature-decoration">
+                        PANIC
                     </div>
 
-                </div>
+                </article>
 
 
-                <div class="showcase-card reveal">
+                <article class="feature">
 
-                    <span class="card-index">03</span>
+                    <div class="feature-number">02</div>
 
-                    <div class="card-symbol">◈</div>
+                    <div class="feature-icon">◇</div>
 
                     <h3>Customization</h3>
 
                     <p>
-                        Configure the client around your
-                        preferred experience and playstyle.
+                        Configure your experience exactly
+                        how you want it.
                     </p>
-
-                    <div class="card-bottom">
-                        <span>FLEXIBLE</span>
-                        <b>↗</b>
-                    </div>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-
-        <!-- FEATURES -->
-        <section class="features section" id="features">
-
-            <div class="center-heading reveal">
-
-                <div class="label">/ WHY PANICCLIENT</div>
-
-                <h2>
-                    Designed with
-                    <span>intent.</span>
-                </h2>
-
-                <p>
-                    Every detail has a purpose.
-                </p>
-
-            </div>
-
-
-            <div class="feature-list">
-
-                <article class="feature-row reveal">
-
-                    <div class="feature-number">01</div>
-
-                    <div class="feature-title">
-                        <span>✦</span>
-                        <h3>Modern UI</h3>
-                    </div>
-
-                    <p>
-                        Glass-inspired visuals, clean navigation
-                        and a polished interface.
-                    </p>
-
-                    <div class="feature-arrow">↗</div>
 
                 </article>
 
 
-                <article class="feature-row reveal">
-
-                    <div class="feature-number">02</div>
-
-                    <div class="feature-title">
-                        <span>◈</span>
-                        <h3>Deep Customization</h3>
-                    </div>
-
-                    <p>
-                        Make PanicClient feel like your own
-                        with flexible configuration.
-                    </p>
-
-                    <div class="feature-arrow">↗</div>
-
-                </article>
-
-
-                <article class="feature-row reveal">
+                <article class="feature">
 
                     <div class="feature-number">03</div>
 
-                    <div class="feature-title">
-                        <span>⚡</span>
-                        <h3>Performance Focused</h3>
-                    </div>
+                    <div class="feature-icon">↯</div>
+
+                    <h3>Performance</h3>
 
                     <p>
-                        Built with a focus on a smooth,
-                        responsive experience.
+                        Built with a focus on responsiveness
+                        and a smooth experience.
                     </p>
-
-                    <div class="feature-arrow">↗</div>
 
                 </article>
 
 
-                <article class="feature-row reveal">
+                <article class="feature">
 
                     <div class="feature-number">04</div>
 
-                    <div class="feature-title">
-                        <span>↻</span>
-                        <h3>Regular Updates</h3>
-                    </div>
+                    <div class="feature-icon">↻</div>
+
+                    <h3>Regular updates</h3>
 
                     <p>
-                        The project continues to evolve with
+                        PanicClient continues to evolve with
                         improvements and new features.
                     </p>
 
-                    <div class="feature-arrow">↗</div>
+                </article>
+
+
+                <article class="feature">
+
+                    <div class="feature-number">05</div>
+
+                    <div class="feature-icon">◎</div>
+
+                    <h3>Community</h3>
+
+                    <p>
+                        Updates, support and access are all
+                        available through our Discord.
+                    </p>
 
                 </article>
 
@@ -551,159 +404,95 @@
         </section>
 
 
-
         <!-- ABOUT -->
-        <section class="about section">
+        <section class="about section" id="about">
 
-            <div class="about-copy reveal">
+            <div class="about-image">
 
-                <div class="label">/ PANICCLIENT</div>
+                <div class="about-circle"></div>
 
-                <h2>
-                    A client with
-                    <span>character.</span>
-                </h2>
-
-                <p>
-                    PanicClient isn't trying to look like everything
-                    else. From the visual identity to the interface,
-                    the goal is simple: create something that feels
-                    premium from the moment you launch it.
-                </p>
-
-                <a
-                    href="https://discord.gg/y3GdwMneg"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="simple-link"
-                >
-                    Join the community
-                    <span>→</span>
-                </a>
-
-            </div>
-
-
-            <div class="about-visual reveal">
-
-                <div class="big-p">
+                <div class="about-letter">
                     P
                 </div>
 
-                <div class="about-ring ring-a"></div>
-                <div class="about-ring ring-b"></div>
-
-                <div class="about-center">
-                    <span>PANIC</span>
-                    <b>CLIENT</b>
-                </div>
-
-            </div>
-
-        </section>
-
-
-
-        <!-- UPDATES -->
-        <section class="updates section" id="updates">
-
-            <div class="section-top reveal">
-
-                <div>
-                    <div class="label">/ CHANGELOG</div>
-
-                    <h2>
-                        Always
-                        <span>evolving.</span>
-                    </h2>
-                </div>
-
-                <span class="version-tag">
-                    LATEST
+                <span class="orbit-text">
+                    PANICCLIENT • PANICCLIENT • PANICCLIENT •
                 </span>
 
             </div>
 
 
-            <div class="update-card reveal">
+            <div class="about-content">
 
-                <div class="update-version">
-                    <span>VERSION</span>
-                    <strong>1.0</strong>
-                </div>
+                <span class="eyebrow">/ ABOUT PANICCLIENT</span>
 
-                <div class="update-content">
+                <h2>
+                    Not another
+                    <em>generic client.</em>
+                </h2>
 
-                    <span class="update-date">
-                        LATEST RELEASE
-                    </span>
+                <p>
+                    PanicClient was built with a different mindset.
+                    Instead of throwing endless elements onto the
+                    screen, we focus on a polished interface,
+                    customization and an experience that feels
+                    intentional.
+                </p>
 
-                    <h3>
-                        PanicClient
-                    </h3>
+                <div class="about-points">
 
-                    <p>
-                        A new generation of PanicClient focused
-                        on a cleaner interface and a better
-                        overall experience.
-                    </p>
-
-                    <div class="update-tags">
-                        <span>UI</span>
-                        <span>IMPROVEMENTS</span>
-                        <span>NEW</span>
+                    <div>
+                        <span>01</span>
+                        <b>Modern by design</b>
                     </div>
 
-                </div>
+                    <div>
+                        <span>02</span>
+                        <b>Built for customization</b>
+                    </div>
 
-                <div class="update-arrow">
-                    ↗
+                    <div>
+                        <span>03</span>
+                        <b>Always improving</b>
+                    </div>
+
                 </div>
 
             </div>
 
         </section>
-
 
 
         <!-- ACCESS -->
-        <section class="access section" id="access">
+        <section class="access">
 
-            <div class="access-container reveal">
+            <div class="access-inner">
 
-                <div class="access-background"></div>
+                <span class="eyebrow">/ GET PANICCLIENT</span>
 
-                <div class="access-content">
+                <h2>
+                    Ready to
+                    <em>play different?</em>
+                </h2>
 
-                    <div class="label">
-                        / GET PANICCLIENT
-                    </div>
+                <p>
+                    Join the PanicClient Discord to get access,
+                    purchase information, updates and support.
+                </p>
 
-                    <h2>
-                        Ready to
-                        <span>play different?</span>
-                    </h2>
+                <a
+                    class="button primary big"
+                    href="https://discord.gg/y3GdwMneg"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    Join Discord
+                    <span>↗</span>
+                </a>
 
-                    <p>
-                        Join our Discord to get access to PanicClient,
-                        purchase information, updates and community support.
-                    </p>
-
-                    <a
-                        href="https://discord.gg/y3GdwMneg"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="btn btn-blue access-button"
-                    >
-                        <span>Join Discord</span>
-                        <strong>↗</strong>
-                    </a>
-
-                    <div class="access-status">
-                        <span class="pulse"></span>
-                        ACCESS & PURCHASE THROUGH DISCORD
-                    </div>
-
+                <div class="access-note">
+                    <span></span>
+                    ACCESS & PURCHASE THROUGH DISCORD
                 </div>
 
             </div>
@@ -711,31 +500,30 @@
         </section>
 
 
-
         <!-- FAQ -->
-        <section class="faq section">
+        <section class="section faq" id="faq">
 
-            <div class="center-heading reveal">
+            <div class="section-heading faq-heading">
 
-                <div class="label">/ FAQ</div>
+                <div>
+                    <span class="eyebrow">/ FAQ</span>
 
-                <h2>
-                    Questions?
-                    <span>Answered.</span>
-                </h2>
+                    <h2>
+                        You ask.
+                        <em>We answer.</em>
+                    </h2>
+                </div>
 
             </div>
 
 
             <div class="faq-list">
 
-                <div class="faq-item reveal">
+                <div class="faq-item">
 
                     <button class="faq-question">
 
-                        <span>
-                            Is PanicClient free?
-                        </span>
+                        <span>Is PanicClient free?</span>
 
                         <b>+</b>
 
@@ -744,7 +532,7 @@
                     <div class="faq-answer">
 
                         <p>
-                            PanicClient is a premium client.
+                            No. PanicClient is a premium client.
                             Join our Discord for current access
                             and purchase information.
                         </p>
@@ -754,13 +542,11 @@
                 </div>
 
 
-                <div class="faq-item reveal">
+                <div class="faq-item">
 
                     <button class="faq-question">
 
-                        <span>
-                            How do I get PanicClient?
-                        </span>
+                        <span>How do I get access?</span>
 
                         <b>+</b>
 
@@ -778,13 +564,11 @@
                 </div>
 
 
-                <div class="faq-item reveal">
+                <div class="faq-item">
 
                     <button class="faq-question">
 
-                        <span>
-                            Where can I get support?
-                        </span>
+                        <span>Where can I get support?</span>
 
                         <b>+</b>
 
@@ -793,8 +577,8 @@
                     <div class="faq-answer">
 
                         <p>
-                            Support, announcements and community
-                            information are available through Discord.
+                            Our Discord is the main place for
+                            support, announcements and updates.
                         </p>
 
                     </div>
@@ -802,13 +586,11 @@
                 </div>
 
 
-                <div class="faq-item reveal">
+                <div class="faq-item">
 
                     <button class="faq-question">
 
-                        <span>
-                            Does PanicClient receive updates?
-                        </span>
+                        <span>Does PanicClient receive updates?</span>
 
                         <b>+</b>
 
@@ -817,8 +599,9 @@
                     <div class="faq-answer">
 
                         <p>
-                            PanicClient is continuously evolving with
-                            improvements and new features.
+                            Yes. PanicClient is continuously
+                            evolving with improvements and
+                            new features.
                         </p>
 
                     </div>
@@ -829,57 +612,34 @@
 
         </section>
 
-
     </main>
-
 
 
     <!-- FOOTER -->
     <footer>
 
-        <div class="footer-top">
+        <div class="footer-main">
 
-            <a href="#" class="brand">
-
-                <div class="brand-mark">
-                    P
-                </div>
-
-                <div class="brand-name">
-                    PANIC<span>CLIENT</span>
-                </div>
-
+            <a href="#" class="logo">
+                <span class="logo-box">P</span>
+                <span>PANIC<span class="blue">CLIENT</span></span>
             </a>
 
-
-            <div class="footer-links">
-
-                <a href="#features">Features</a>
-                <a href="#showcase">Showcase</a>
-                <a href="#updates">Updates</a>
-
-                <a
-                    href="https://discord.gg/y3GdwMneg"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    Discord ↗
-                </a>
-
-            </div>
+            <a
+                href="https://discord.gg/y3GdwMneg"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                Discord ↗
+            </a>
 
         </div>
 
-
         <div class="footer-bottom">
 
-            <span>
-                © 2026 PanicClient
-            </span>
+            <span>© 2026 PanicClient</span>
 
-            <span>
-                PLAY DIFFERENT.
-            </span>
+            <span>PLAY DIFFERENT.</span>
 
         </div>
 
