@@ -17,6 +17,25 @@ body::after{content:'';position:fixed;inset:0;z-index:9998;pointer-events:none;b
 .vignette{position:fixed;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(ellipse at center,transparent 30%,#000 100%)}
 #fx{position:fixed;inset:0;z-index:-2;width:100%;height:100%}
 
+.eye-wrap{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index:-1;pointer-events:none;opacity:.55}
+.eye{width:340px;height:340px;position:relative;display:flex;align-items:center;justify-content:center}
+.eye-outer{width:320px;height:320px;background:radial-gradient(circle at 50% 45%,#1a1a1e 0%,#0a0a0c 70%);border:3px solid rgba(255,0,60,.4);border-radius:50%;position:relative;overflow:hidden;box-shadow:0 0 50px rgba(255,0,60,.2),0 0 100px rgba(0,240,255,.08),inset 0 0 40px rgba(0,0,0,.85)}
+.eye-outer::before{content:'';position:absolute;inset:6px;border-radius:50%;border:1px solid rgba(0,240,255,.15);pointer-events:none}
+.eye-sclera{position:absolute;inset:22px;background:radial-gradient(circle at center,#f0f0f4 0%,#d0d0d8 100%);border-radius:50%;overflow:hidden}
+.eye-iris{position:absolute;width:110px;height:110px;left:50%;top:50%;margin-left:-55px;margin-top:-55px;border-radius:50%;background:radial-gradient(circle at 32% 32%,#ff88aa 0%,transparent 22%),radial-gradient(circle at 50% 50%,#ff003c 0%,#9a0020 40%,#120005 100%);box-shadow:0 0 18px rgba(255,0,60,.7),inset 0 0 12px rgba(0,0,0,.5);will-change:transform}
+.eye-iris::before{content:'';position:absolute;inset:16px;border-radius:50%;background:radial-gradient(circle at 38% 38%,#ff4477,#3a000c 70%);border:1px solid rgba(0,240,255,.3)}
+.eye-pupil{position:absolute;width:42px;height:42px;left:50%;top:50%;margin-left:-21px;margin-top:-21px;border-radius:50%;background:#030306;box-shadow:0 0 8px #000}
+.eye-pupil::after{content:'';position:absolute;width:14px;height:14px;top:6px;left:8px;border-radius:50%;background:rgba(255,255,255,.9);box-shadow:2px 5px 0 1px rgba(255,255,255,.2)}
+.eye-lid{position:absolute;left:0;right:0;height:50%;background:#0a0a0c;z-index:2;transition:transform .12s;pointer-events:none}
+.eye-lid.top{top:0;border-radius:50% 50% 0 0;transform:translateY(-92%);transform-origin:top center}
+.eye-lid.bot{bottom:0;border-radius:0 0 50% 50%;transform:translateY(92%);transform-origin:bottom center}
+.eye.blink .eye-lid.top{transform:translateY(0)}
+.eye.blink .eye-lid.bot{transform:translateY(0)}
+.eye-glow{position:absolute;width:380px;height:380px;left:50%;top:50%;transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(255,0,60,.15) 0%,transparent 65%);pointer-events:none;animation:eyePulse 4s ease-in-out infinite}
+@keyframes eyePulse{0%,100%{opacity:.5;transform:translate(-50%,-50%) scale(1)}50%{opacity:1;transform:translate(-50%,-50%) scale(1.12)}}
+@media(max-width:900px){.eye-wrap{opacity:.35;transform:translate(-50%,-50%) scale(.6)}}
+@media(max-width:600px){.eye-wrap{display:none}}
+
 nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1rem 1.5rem;display:flex;justify-content:space-between;align-items:center;background:rgba(3,3,3,.75);backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,0,60,.12);transition:.3s}
 nav.on{background:rgba(3,3,3,.95);border-bottom-color:rgba(255,0,60,.35)}
 .logo{font-family:'Orbitron',sans-serif;font-weight:900;font-size:1.15rem;letter-spacing:3px;color:#fff}
@@ -149,6 +168,19 @@ footer a:hover{text-shadow:0 0 10px rgba(255,0,60,.5)}
 <body>
 <canvas id="fx"></canvas>
 <div class="vignette"></div>
+
+<div class="eye-wrap">
+  <div class="eye-glow"></div>
+  <div class="eye" id="eye">
+    <div class="eye-outer">
+      <div class="eye-lid top"></div>
+      <div class="eye-lid bot"></div>
+      <div class="eye-sclera">
+        <div class="eye-iris" id="eye-iris"><div class="eye-pupil"></div></div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <nav id="nav">
   <div class="logo">PANIC</div>
@@ -346,6 +378,37 @@ let flash=0;
   requestAnimationFrame(loop);
 })();
 
+const iris=document.getElementById('eye-iris');
+const eyeEl=document.getElementById('eye');
+const eyeWrap=document.querySelector('.eye-wrap');
+if(iris&&eyeEl){
+  let targetX=0,targetY=0,curX=0,curY=0;
+  const maxMove=48;
+  (function eyeLoop(){
+    curX+=(targetX-curX)*.18;
+    curY+=(targetY-curY)*.18;
+    iris.style.transform=`translate(${curX}px,${curY}px)`;
+    requestAnimationFrame(eyeLoop);
+  })();
+  document.addEventListener('mousemove',e=>{
+    if(!eyeWrap)return;
+    const rect=eyeWrap.getBoundingClientRect();
+    const cx=rect.left+rect.width/2,cy=rect.top+rect.height/2;
+    let dx=e.clientX-cx,dy=e.clientY-cy;
+    const dist=Math.sqrt(dx*dx+dy*dy)||1;
+    // clamp to maxMove so pupil stays inside sclera
+    if(dist>maxMove){dx=dx/dist*maxMove;dy=dy/dist*maxMove}
+    targetX=dx*0.55;
+    targetY=dy*0.55;
+  });
+  function blink(){
+    eyeEl.classList.add('blink');
+    setTimeout(()=>eyeEl.classList.remove('blink'),140);
+    setTimeout(blink,3500+Math.random()*5000);
+  }
+  setTimeout(blink,2500);
+}
+
 const nav=document.getElementById('nav');
 addEventListener('scroll',()=>nav.classList.toggle('on',scrollY>40));
 
@@ -387,12 +450,14 @@ document.querySelectorAll('.faq-q').forEach(btn=>{
 });
 
 const title=document.querySelector('.glitch');
-setInterval(()=>{
-  if(Math.random()>.65){
-    title.style.transform=`translate(${(Math.random()-.5)*5}px,${(Math.random()-.5)*3}px)`;
-    setTimeout(()=>{title.style.transform=''},60);
-  }
-},1800);
+if(title){
+  setInterval(()=>{
+    if(Math.random()>.65){
+      title.style.transform=`translate(${(Math.random()-.5)*5}px,${(Math.random()-.5)*3}px)`;
+      setTimeout(()=>{title.style.transform=''},60);
+    }
+  },1800);
+}
 </script>
 </body>
 </html>
